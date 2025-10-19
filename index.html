@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex Interactiva</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">
+        <span class="pokeball"></span>
+        Pokédex Interactiva
+      </span>
+      <span class="badge bg-light text-dark fs-6">
+        Total: <span id="pokemon-count">0</span> Pokémon
+      </span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container my-4">
+    <!-- Search Bar -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="search" 
+            class="form-control form-control-lg" 
+            placeholder="🔍 Buscar Pokémon por nombre, tipo, habilidad o ID..."
+            autocomplete="off"
+          >
+          <span class="search-icon">⌨️ Ctrl+F</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex gap-2 flex-wrap justify-content-center">
+          <button id="ordenar" class="btn btn-primary">
+            📊 Ordenar A-Z
+          </button>
+          <button id="agregar" class="btn btn-success">
+            🎲 Agregar Aleatorio
+          </button>
+          <button id="eliminar" class="btn btn-warning">
+            ➖ Eliminar Último
+          </button>
+          <button id="limpiar" class="btn btn-danger">
+            🗑️ Limpiar Todo
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="spinner" class="text-center py-5" style="display: none;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-3 text-muted">Cargando Pokémon...</p>
+    </div>
+
+    <!-- Error Container -->
+    <div id="error-container" class="error-message" style="display: none;">
+      <h4>⚠️ Error de Conexión</h4>
+      <p>No se pudieron cargar los Pokémon. Por favor verifica tu conexión a internet.</p>
+      <button class="btn btn-primary" onclick="location.reload()">
+        🔄 Reintentar
+      </button>
+    </div>
+
+    <!-- Pokemon Grid -->
+    <div id="pokemon-container" class="row">
+      <!-- Pokemon cards will be inserted here -->
+    </div>
+
+    <!-- Load More Button -->
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <button id="cargarMas" class="btn btn-primary btn-lg">
+          ⬇️ Cargar Más Pokémon
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+      <p class="mb-2">
+        Datos proporcionados por 
+        <a href="https://pokeapi.co" target="_blank" class="text-white">PokéAPI</a>
+      </p>
+      <p class="mb-0">
+        <small>💡 Atajos: Ctrl+F para buscar | Ctrl+R para agregar aleatorio</small>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Pokemon Details Modal -->
+  <div class="modal fade" id="pokemonModal" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="pokemonModalLabel">Detalles del Pokémon</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="pokemonModalBody">
+          <!-- Pokemon details will be inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container position-fixed bottom-0 start-0 p-3" style="bottom: 80px !important;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">🔔 Notificación</strong>
+        <small id="toast-time">Ahora</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="toast-body">
+        Mensaje de notificación
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema">
+    <span class="theme-icon sun-icon">☀️</span>
+    <span class="theme-icon moon-icon">🌙</span>
+  </button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <!-- App JS -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
